@@ -1,1 +1,46 @@
+-- Twitter Data Analysis
+-- SQL analysis for engagement, categories, and time trends
 
+-- 1. Total number of tweets
+SELECT COUNT(*) AS total_tweets
+FROM tweets;
+
+-- 2. Total engagement
+SELECT
+    SUM(favorite_count + retweet_count + reply_count + quote_count)
+    AS total_engagement
+FROM tweets;
+
+-- 3. Top 10 tweets by engagement
+SELECT
+    created_at,
+    full_text,
+    favorite_count,
+    retweet_count,
+    reply_count,
+    quote_count,
+    (favorite_count + retweet_count + reply_count + quote_count)
+    AS total_engagement
+FROM tweets
+ORDER BY total_engagement DESC
+LIMIT 10;
+
+-- 4. Engagement by category
+SELECT
+    category,
+    COUNT(*) AS tweet_count,
+    SUM(favorite_count + retweet_count + reply_count + quote_count)
+    AS total_engagement,
+    AVG(favorite_count + retweet_count + reply_count + quote_count)
+    AS average_engagement
+FROM tweets
+GROUP BY category
+ORDER BY total_engagement DESC;
+
+-- 5. Tweets by year
+SELECT
+    EXTRACT(YEAR FROM created_at) AS year,
+    COUNT(*) AS tweet_count
+FROM tweets
+GROUP BY EXTRACT(YEAR FROM created_at)
+ORDER BY year;
