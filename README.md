@@ -94,3 +94,4 @@ twitter-data-analysis-dashboard/
 ├── README.md
 ├── LICENSE
 └── .gitignore
+![Twitter Analytics Dashboard](Twitter_Analytics_Dashboard.png)
